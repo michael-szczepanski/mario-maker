@@ -12,7 +12,11 @@ public class KeyListener {
   }
 
   public static KeyListener get() {
-    return KeyListener.instance == null ? new KeyListener() : KeyListener.instance;
+    if (KeyListener.instance == null) {
+      instance = new KeyListener();
+    }
+
+    return KeyListener.instance;
   }
 
   public static void keyCallback(long window, int key, int scancode, int action, int mods) {
@@ -24,6 +28,6 @@ public class KeyListener {
   }
 
   public static boolean isKeyPressed(int keyCode) {
-    return keyCode < get().keyPressed.length && get().keyPressed[keyCode];
+    return get().keyPressed[keyCode];
   }
 }

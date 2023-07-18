@@ -13,6 +13,7 @@ public class Window {
   private int width, height;
   private String title;
   private long glfwWindow;
+  private float r, g, b, a;
 
   private static Window instance = null;
 
@@ -20,6 +21,10 @@ public class Window {
     this.width = 1920;
     this.height = 1080;
     this.title = "Mario Maker";
+    r = 1;
+    g = 1;
+    b = 1;
+    a = 1;
   }
 
   public static Window get() {
@@ -89,7 +94,7 @@ public class Window {
       // Poll events
       glfwPollEvents();
 
-      glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+      glClearColor(r, g, b, a);
       glClear(GL_COLOR_BUFFER_BIT);
 
       glfwSwapBuffers(glfwWindow);
