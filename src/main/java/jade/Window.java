@@ -14,9 +14,11 @@ public class Window {
   private int width, height;
   private String title;
   private long glfwWindow;
-  private float r, g, b, a;
+  public float r, g, b, a;
 
   private static Window instance = null;
+
+  private static Scene currentScene;
 
   private Window() {
     this.width = 1920;
@@ -28,8 +30,28 @@ public class Window {
     a = 1;
   }
 
+  public static void changeScene(int newScene) {
+    switch (newScene) {
+      case 0:
+        currentScene = new LevelEditorScene();
+        // currentScene.init();
+        break;
+      case 1:
+        currentScene = new LevelScene();
+        // currentScene.init();
+        break;
+      default:
+        assert false : String.format("Unknown scene '%s'", newScene);
+        break;
+    }
+  }
+
   public static Window get() {
-    return Window.instance == null ? new Window() : Window.instance;
+    if (Window.instance == null) {
+      instance = new Window();
+    }
+
+    return Window.instance;
   }
 
   public void run() {
@@ -59,7 +81,6 @@ public class Window {
     // Configure GLFW
     glfwDefaultWindowHints();
     glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // Window is not visible at first
-    glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE); // Window starts out maximized
 
     // Create the window
     glfwWindow = glfwCreateWindow(this.width, this.height, this.title, NULL, NULL);
@@ -90,11 +111,14 @@ public class Window {
     // creates the GLCapabilities instance and makes the OpenGL
     // bindings available for use.
     GL.createCapabilities();
+
+    Window.changeScene(0);
   }
 
   public void loop() {
     float beginTime = Time.getTime();
     float endTime;
+    float dt = -1.0f;
 
     while (!glfwWindowShouldClose(glfwWindow)) {
       // Poll events
@@ -103,10 +127,14 @@ public class Window {
       glClearColor(r, g, b, a);
       glClear(GL_COLOR_BUFFER_BIT);
 
+      if (dt >= 0) {
+        currentScene.update(dt);
+      }
+
       glfwSwapBuffers(glfwWindow);
 
       endTime = Time.getTime();
-      float dt = endTime - beginTime;
+      dt = endTime - beginTime;
       beginTime = endTime;
     }
   }
