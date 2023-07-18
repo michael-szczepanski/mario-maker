@@ -61,6 +61,13 @@ public class Window {
       throw new IllegalStateException("Failed to create the GLFW window.");
     }
 
+    // :: is a shortcut for lambda function e.g. (x) -> x + 2
+    // it forwards the position callback to MouseListener callback function
+    glfwSetCursorPosCallback(glfwWindow, MouseListener::mousePosCallback);
+    glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
+    glfwSetScrollCallback(glfwWindow, MouseListener::mouseScrollCallback);
+    glfwSetKeyCallback(glfwWindow, KeyListener::keyCallback);
+
     // Make the OpenGL context current
     glfwMakeContextCurrent(glfwWindow);
     // Enable v-sync
