@@ -66,58 +66,11 @@ public class LevelEditorScene extends Scene {
 
   @Override
   public void init() {
+    Shader testShader = new Shader("assets/shaders/default.glsl");
+
     // Compile and link shaders
 
-    // Load and compile vertex shader
-    vertexID = glCreateShader(GL_VERTEX_SHADER);
-    // Pass the shader source code to the GPU
-    glShaderSource(vertexID, vertexShaderSrc);
-    glCompileShader(vertexID);
-
-    // Check for errors in compilation
-    int success = glGetShaderi(vertexID, GL_COMPILE_STATUS); // 0 on fail
-
-    if (success == GL_FALSE) {
-      int len = glGetShaderi(vertexID, GL_INFO_LOG_LENGTH);
-      System.out.println("Error: 'defaultShader.glsl'\n\tVertex shader compilation failed.");
-      System.out.println(glGetShaderInfoLog(vertexID, len));
-      assert false : "";
-    }
-
-    // Load and compile fragment shader
-    fragmentID = glCreateShader(GL_FRAGMENT_SHADER);
-    // Pass the shader source code to the GPU
-    glShaderSource(fragmentID, fragmentShaderSrc);
-    glCompileShader(fragmentID);
-
-    // Check for errors in compilation
-    success = glGetShaderi(fragmentID, GL_COMPILE_STATUS); // 0 on fail
-
-    if (success == GL_FALSE) {
-      int len = glGetShaderi(fragmentID, GL_INFO_LOG_LENGTH);
-      System.out.println("Error: 'defaultShader.glsl'\n\tFragment shader compilation failed.");
-      System.out.println(glGetShaderInfoLog(fragmentID, len));
-      assert false : "";
-    }
-
-    // Link shaders and check for errors
-    shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexID);
-    glAttachShader(shaderProgram, fragmentID);
-    glLinkProgram(shaderProgram);
-
-    // Check for linking errors
-    success = glGetProgrami(shaderProgram, GL_LINK_STATUS);
-    if (success == GL_FALSE) {
-      int len = glGetProgrami(shaderProgram, GL_INFO_LOG_LENGTH);
-      System.out.println("Error: 'defaultShader.glsl'\n\tShader link failed.");
-      System.out.println(glGetProgramInfoLog(shaderProgram, len));
-      assert false : "";
-    }
-
-    //
     // Generate VAO, VBO, and EBO buffer objects, and send to GPU
-    //
 
     vaoID = glGenVertexArrays();
     glBindVertexArray(vaoID); // Everything after this line will be bound to vaoID
