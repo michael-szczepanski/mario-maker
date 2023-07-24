@@ -3,6 +3,7 @@ package renderer;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 import static org.lwjgl.opengl.GL11.GL_FALSE;
 import static org.lwjgl.opengl.GL20.*;
@@ -42,9 +43,9 @@ public class Shader {
       }
 
       if (secondPattern.equals("vertex")) {
-        vertexSource = splitString[1];
+        vertexSource = splitString[2];
       } else if (secondPattern.equals("fragment")) {
-        fragmentSource = splitString[1];
+        fragmentSource = splitString[2];
       } else {
         throw new IOException(String.format("Unexpected token '%s''\r\n", secondPattern));
       }
@@ -55,8 +56,8 @@ public class Shader {
     }
   }
 
-  public void compile() {
-    int vertexID, fragmentID;
+  public void compileAndLink() {
+      int vertexID, fragmentID;
 
     // Load and compile vertex shader
     vertexID = glCreateShader(GL_VERTEX_SHADER);
@@ -107,9 +108,9 @@ public class Shader {
   }
 
   public void use() {
-
+    glUseProgram(shaderProgramID);
   }
   public void detach() {
-
+    glUseProgram(0);
   }
 }
