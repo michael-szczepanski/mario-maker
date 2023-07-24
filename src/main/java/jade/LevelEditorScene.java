@@ -114,7 +114,9 @@ public class LevelEditorScene extends Scene {
       assert false : "";
     }
 
+    //
     // Generate VAO, VBO, and EBO buffer objects, and send to GPU
+    //
 
     vaoID = glGenVertexArrays();
     glBindVertexArray(vaoID); // Everything after this line will be bound to vaoID
