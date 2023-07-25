@@ -3,6 +3,7 @@ package jade;
 import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 import renderer.Shader;
+import renderer.Texture;
 import util.Time;
 
 import java.nio.FloatBuffer;
@@ -17,10 +18,10 @@ public class LevelEditorScene extends Scene {
     private float[] vertexArray = {
             // position                      // color                 // UV Coordinates
             // x       y       z             r     g     b     a
-               100.0f, 0.0f,   0.0f,         1.0f, 0.0f, 0.0f, 1.0f,  1, 0, // Bottom right 0
-               0.0f,   100.0f, 0.0f,         0.0f, 1.0f, 0.0f, 1.0f,  0, 1, // Top left     1
-               100.0f, 100.0f, 0.0f,         0.0f, 0.0f, 1.0f, 1.0f,  1, 1, // Top right    2
-               0.0f,   0.0f,   0.0f,         0.0f, 0.0f, 0.0f, 1.0f,  0, 0, // Bottom left  3
+               100.0f, 0.0f,   0.0f,         1.0f, 0.0f, 0.0f, 1.0f,  1, 1, // Bottom right 0
+               0.0f,   100.0f, 0.0f,         0.0f, 1.0f, 0.0f, 1.0f,  0, 0, // Top left     1
+               100.0f, 100.0f, 0.0f,         0.0f, 0.0f, 1.0f, 1.0f,  1, 0, // Top right    2
+               0.0f,   0.0f,   0.0f,         0.0f, 0.0f, 0.0f, 1.0f,  0, 1, // Bottom left  3
     };
 
     private int[] elementArray = {
@@ -37,6 +38,7 @@ public class LevelEditorScene extends Scene {
 
     private int vaoID, vboID, eboID;
     private Shader defaultShader;
+    private Texture testTexture;
 
     public LevelEditorScene() {
 
@@ -48,6 +50,8 @@ public class LevelEditorScene extends Scene {
 
         defaultShader = new Shader("assets/shaders/default.glsl");
         defaultShader.compileAndLink();
+
+        this.testTexture = new Texture("assets/images/testImage.png");
 
         // Generate VAO, VBO, and EBO buffer objects, and send to GPU
 
@@ -91,6 +95,13 @@ public class LevelEditorScene extends Scene {
 
         // Bind shader program
         defaultShader.use();
+
+        // Upload texture to shader and use slot 0
+        defaultShader.uploadTexture("TEX_SAMPLER", 0);
+        // Activate slot 0 and push the texture to that slot
+        glActiveTexture(GL_TEXTURE0);
+        testTexture.bind();
+
         defaultShader.uploadMat4f("uProjection", camera.getProjectionMatrix());
         defaultShader.uploadMat4f("uView", camera.getViewMatrix());
         defaultShader.uploadFloat("uTime", Time.getTime());
