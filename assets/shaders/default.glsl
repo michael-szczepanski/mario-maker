@@ -33,6 +33,5 @@ in vec4 fColor;
 out vec4 color;
 
 void main() {
-    // colors the position with fColor passed in earlier and outs it to GPU
-    color = sin(uTime) * fColor;
+    color = fColor;
 }
