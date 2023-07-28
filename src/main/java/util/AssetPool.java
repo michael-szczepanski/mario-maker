@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class AssetPool {
 
-    // TODOL get methods might require try/catch blocks to deal with missing resources;
+    // TODO: get methods might require try/catch blocks to deal with missing resources;
 
     private static Map<String, Shader> shaders = new HashMap<>();
     private static Map<String, Texture> textures = new HashMap<>();

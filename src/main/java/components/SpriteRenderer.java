@@ -17,7 +17,7 @@ public class SpriteRenderer extends Component {
     }
 
     public SpriteRenderer(Texture texture) {
-        this.texture = null;
+        this.texture = texture;
         this.color = new Vector4f(1, 1, 1, 1);
     }
 
@@ -43,8 +43,8 @@ public class SpriteRenderer extends Component {
         Vector2f[] texCoords = {
                 new Vector2f(1, 1),
                 new Vector2f(1, 0),
-                new Vector2f(0, 1),
                 new Vector2f(0, 0),
+                new Vector2f(0, 1),
         };
 
         return texCoords;
