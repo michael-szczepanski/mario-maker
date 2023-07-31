@@ -95,8 +95,6 @@ public class RenderBatch {
         if (spr.getTexture() != null) {
             if (!textures.contains(spr.getTexture())) {
                 textures.add(spr.getTexture());
-                // TODO: Breaks if we add more than 8 textures.
-                // It will need to start a new batch when trying to add 9th texture
             }
         }
 

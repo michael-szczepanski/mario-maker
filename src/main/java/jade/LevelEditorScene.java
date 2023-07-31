@@ -1,5 +1,6 @@
 package jade;
 
+import components.Sprite;
 import components.SpriteRenderer;
 import org.joml.Vector2f;
 import util.AssetPool;
@@ -15,11 +16,11 @@ public class LevelEditorScene extends Scene {
         this.camera = new Camera(new Vector2f());
 
         GameObject obj1 = new GameObject("Object 1", new Transform(new Vector2f(100, 100), new Vector2f(256, 256)));
-        obj1.addComponent(new SpriteRenderer(AssetPool.getTexture("assets/images/testImage.png")));
+        obj1.addComponent(new SpriteRenderer(new Sprite(AssetPool.getTexture("assets/images/testImage.png"))));
         this.addGameObjectToScene(obj1);
 
         GameObject obj2 = new GameObject("Object 2", new Transform(new Vector2f(400, 100), new Vector2f(128, 128)));
-        obj2.addComponent(new SpriteRenderer(AssetPool.getTexture("assets/images/testImage2.png")));
+        obj2.addComponent(new SpriteRenderer(new Sprite(AssetPool.getTexture("assets/images/testImage2.png"))));
         this.addGameObjectToScene(obj2);
 
         loadResources();
