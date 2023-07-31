@@ -9,6 +9,7 @@ import util.AssetPool;
 public class LevelEditorScene extends Scene {
 
     private GameObject obj1;
+    private Spritesheet sprites;
 
     public LevelEditorScene() {
 
@@ -18,18 +19,25 @@ public class LevelEditorScene extends Scene {
     public void init() {
         loadResources();
 
-        Spritesheet sprites = AssetPool.getSpritesheet("assets/images/spritesheet.png");
+        sprites = AssetPool.getSpritesheet("assets/images/spritesheet.png");
 
         this.camera = new Camera(new Vector2f());
 
-        obj1 = new GameObject("Object 1", new Transform(new Vector2f(100, 100), new Vector2f(256, 256)));
-        obj1.addComponent(new SpriteRenderer(sprites.getSprite(0)));
-        this.addGameObjectToScene(obj1);
-
-        GameObject obj2 = new GameObject("Object 2", new Transform(new Vector2f(400, 100), new Vector2f(256, 256)));
-        obj2.addComponent(new SpriteRenderer(sprites.getSprite(20)));
+        GameObject obj2 = new GameObject("Object 2",
+                new Transform(new Vector2f(400, 100), new Vector2f(256, 256)), 2);
+        obj2.addComponent(new SpriteRenderer(new Sprite(
+                AssetPool.getTexture("assets/images/blendImage2.png")
+        )));
         this.addGameObjectToScene(obj2);
+
+        obj1 = new GameObject("Object 1",
+                new Transform(new Vector2f(200, 100), new Vector2f(256, 256)), 1);
+        obj1.addComponent(new SpriteRenderer(new Sprite(
+                AssetPool.getTexture("assets/images/blendImage1.png")
+        )));
+        this.addGameObjectToScene(obj1);
     }
+
 
     private void loadResources() {
         AssetPool.getShader("assets/shaders/default.glsl");
@@ -39,8 +47,6 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void update(float dt) {
-//        System.out.println("FPS: " + (1.0f / dt));
-        obj1.transform.position.x += 10 * dt;
 
         for (GameObject go : this.gameObjects) {
             go.update(dt);
