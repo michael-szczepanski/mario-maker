@@ -14,6 +14,7 @@ public class LevelEditorScene extends Scene {
 
     private GameObject obj1;
     private Spritesheet sprites;
+    SpriteRenderer obj1SpriteRenderer;
 
     public LevelEditorScene() {
 
@@ -29,7 +30,7 @@ public class LevelEditorScene extends Scene {
 
         obj1 = new GameObject("Object 1",
                 new Transform(new Vector2f(200, 100), new Vector2f(256, 256)), 1);
-        SpriteRenderer obj1SpriteRenderer = new SpriteRenderer();
+        obj1SpriteRenderer = new SpriteRenderer();
         obj1SpriteRenderer.setColor(new Vector4f(1, 0, 0, 1));
         obj1.addComponent(obj1SpriteRenderer);
         this.addGameObjectToScene(obj1);
@@ -48,7 +49,10 @@ public class LevelEditorScene extends Scene {
                 .setPrettyPrinting()
                 .create();
 
-        System.out.println(gson.toJson(1));
+        String serialized = gson.toJson(obj1);
+        System.out.println(serialized);
+        GameObject obj = gson.fromJson(serialized, GameObject.class);
+        System.out.println(obj1);
     }
 
 
@@ -60,6 +64,8 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void update(float dt) {
+
+
 
         for (GameObject go : this.gameObjects) {
             go.update(dt);
