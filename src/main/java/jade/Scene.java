@@ -92,6 +92,7 @@ public abstract class Scene {
 
         String inFile = "";
         try {
+            // TODO: fix NoSuchFileException when level.txt does not exist
             inFile = new String(Files.readAllBytes(Paths.get("level.txt")));
         } catch (IOException e) {
             e.printStackTrace();
