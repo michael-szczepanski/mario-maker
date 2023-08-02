@@ -5,3 +5,4 @@ gradle/*
 uiPreview.svg
 tilesets.svg
 imgui.ini
+level.txt
