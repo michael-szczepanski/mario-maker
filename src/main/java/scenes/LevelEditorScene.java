@@ -1,4 +1,4 @@
-package jade;
+package scenes;
 
 import components.Rigidbody;
 import components.Sprite;
@@ -6,8 +6,13 @@ import components.SpriteRenderer;
 import components.Spritesheet;
 import imgui.ImGui;
 import imgui.ImVec2;
+import jade.Camera;
+import jade.GameObject;
+import jade.MouseListener;
+import jade.Transform;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
+import scenes.Scene;
 import util.AssetPool;
 
 public class LevelEditorScene extends Scene {
@@ -24,7 +29,7 @@ public class LevelEditorScene extends Scene {
     public void init() {
         loadResources();
 
-        this.camera = new Camera(new Vector2f(-250, 0));
+        this.camera = new Camera(new Vector2f(0, 0));
         sprites = AssetPool.getSpritesheet("assets/images/spritesheets/decorationsAndBlocks.png");
 
         if (levelLoaded) {
@@ -33,7 +38,7 @@ public class LevelEditorScene extends Scene {
         }
 
         obj1 = new GameObject("Object 1",
-                new Transform(new Vector2f(200, 100), new Vector2f(256, 256)), 1);
+                new Transform(new Vector2f(100, 50), new Vector2f(128, 128)), 1);
         obj1SpriteRenderer = new SpriteRenderer();
         obj1SpriteRenderer.setColor(new Vector4f(1, 0, 0, 1));
         obj1.addComponent(obj1SpriteRenderer);
@@ -42,7 +47,7 @@ public class LevelEditorScene extends Scene {
         this.activeGameObject = obj1;
 
         GameObject obj2 = new GameObject("Object 2",
-                new Transform(new Vector2f(400, 100), new Vector2f(256, 256)), 2);
+                new Transform(new Vector2f(200, 50), new Vector2f(128, 128)), 2);
         SpriteRenderer obj2SpriteRenderer = new SpriteRenderer();
         Sprite obj2Sprite = new Sprite();
         obj2Sprite.setTexture(AssetPool.getTexture("assets/images/blendImage2.png"));
