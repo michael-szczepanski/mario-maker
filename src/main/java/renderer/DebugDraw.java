@@ -44,7 +44,7 @@ public class DebugDraw {
         glVertexAttribPointer(1, 3, GL_FLOAT, false, 6 * Float.BYTES, 3 * Float.BYTES);
         glEnableVertexAttribArray(1);
 
-        // TODO: Set line width
+        glLineWidth(2.0f);
     }
 
     public static void beginFrame() {
@@ -108,5 +108,21 @@ public class DebugDraw {
 
         // Unbind shader
         shader.detach();
+    }
+
+    // =======================================
+    // Add line2D methods
+    // =======================================
+    public static void addLine2D(Vector2f from, Vector2f to) {
+        // TODO: add constants for common colors
+        addLine2D(from, to, new Vector3f(0, 1, 0), 1);
+    }
+    public static void addLine2D(Vector2f from, Vector2f to, Vector3f color) {
+        addLine2D(from, to, color, 1);
+    }
+
+    public static void addLine2D(Vector2f from, Vector2f to, Vector3f color, int lifetime) {
+        if (lines.size() >= MAX_LINES) return;
+        DebugDraw.lines.add(new Line2D(from, to, color, lifetime));
     }
 }
