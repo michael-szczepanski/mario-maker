@@ -156,7 +156,7 @@ public class ImGuiLayer {
         fontConfig.setGlyphRanges(fontAtlas.getGlyphRangesDefault());
 
         fontConfig.setPixelSnapH(true);
-        fontAtlas.addFontFromFileTTF("assets/fonts/segoeui.ttf", 20, fontConfig);
+        fontAtlas.addFontFromFileTTF("assets/fonts/segoeui.ttf", 18, fontConfig);
 
         fontConfig.destroy(); // After all fonts were added we don't need this config more
 

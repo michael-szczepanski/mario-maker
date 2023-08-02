@@ -24,7 +24,7 @@ public class LevelEditorScene extends Scene {
     public void init() {
         loadResources();
 
-        this.camera = new Camera(new Vector2f());
+        this.camera = new Camera(new Vector2f(-250, 0));
         sprites = AssetPool.getSpritesheet("assets/images/spritesheets/decorationsAndBlocks.png");
 
         if (levelLoaded) {
@@ -61,8 +61,7 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void update(float dt) {
-
-
+        MouseListener.getOrthoY();
 
         for (GameObject go : this.gameObjects) {
             go.update(dt);
@@ -86,8 +85,8 @@ public class LevelEditorScene extends Scene {
         for (int i = 0; i < sprites.size(); i++) {
             Sprite sprite = sprites.getSprite(i);
             // Set the width and height of the sprites we would like to be displayed as
-            float spriteWidth = sprite.getWidth() * 4;
-            float spriteHeight = sprite.getHeight() * 4;
+            float spriteWidth = sprite.getWidth() * 2.0f;
+            float spriteHeight = sprite.getHeight() * 2.0f;
             int id = sprite.getTexId();
             Vector2f[] texCoords = sprite.getTexCoords();
 
