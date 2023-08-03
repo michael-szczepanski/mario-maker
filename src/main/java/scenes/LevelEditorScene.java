@@ -8,47 +8,27 @@ import jade.GameObject;
 import jade.Prefabs;
 import jade.Transform;
 import org.joml.Vector2f;
-import org.joml.Vector3f;
-import org.joml.Vector4f;
-import renderer.DebugDraw;
 import util.AssetPool;
 
 public class LevelEditorScene extends Scene {
 
-    private GameObject obj1;
     private Spritesheet sprites;
-    SpriteRenderer obj1SpriteRenderer;
 
-    MouseControls mouseControls = new MouseControls();
+    GameObject levelEditorComponents = new GameObject("LevelEditor", new Transform(new Vector2f()), 0);
 
     @Override
     public void init() {
+        levelEditorComponents.addComponent(new MouseControls());
+        levelEditorComponents.addComponent(new GridLines());
         loadResources();
 
         this.camera = new Camera(new Vector2f(0, 0));
         sprites = AssetPool.getSpritesheet("assets/images/spritesheets/decorationsAndBlocks.png");
+
         if (levelLoaded) {
             this.activeGameObject = gameObjects.get(0);
             return;
         }
-
-        obj1 = new GameObject("Object 1",
-                new Transform(new Vector2f(100, 50), new Vector2f(128, 128)), 1);
-        obj1SpriteRenderer = new SpriteRenderer();
-        obj1SpriteRenderer.setColor(new Vector4f(1, 0, 0, 1));
-        obj1.addComponent(obj1SpriteRenderer);
-        obj1.addComponent(new Rigidbody());
-        this.addGameObjectToScene(obj1);
-        this.activeGameObject = obj1;
-
-        GameObject obj2 = new GameObject("Object 2",
-                new Transform(new Vector2f(200, 50), new Vector2f(128, 128)), 2);
-        SpriteRenderer obj2SpriteRenderer = new SpriteRenderer();
-        Sprite obj2Sprite = new Sprite();
-        obj2Sprite.setTexture(AssetPool.getTexture("assets/images/blendImage2.png"));
-        obj2SpriteRenderer.setSprite(obj2Sprite);
-        obj2.addComponent(obj2SpriteRenderer);
-        this.addGameObjectToScene(obj2);
     }
 
 
@@ -62,15 +42,9 @@ public class LevelEditorScene extends Scene {
     float t = 0.0f;
     @Override
     public void update(float dt) {
-        mouseControls.update(dt);
+        levelEditorComponents.update(dt);
 
-        float x = ((float)Math.sin(t) * 200.0f) + 600;
-        float y = ((float)Math.cos(t) * 200.0f) + 400;
-        t += 0.5f;
-
-        DebugDraw.addLine2D(new Vector2f(600, 400), new Vector2f(x, y), new Vector3f(0, 0, 1), 144);
-
-        for (GameObject go : this.gameObjects) {
+       for (GameObject go : this.gameObjects) {
             go.update(dt);
         }
 
@@ -99,10 +73,10 @@ public class LevelEditorScene extends Scene {
 
             ImGui.pushID(i); // Gives all sprites a unique ID, since ImGui uses texture id for button clicks
 
-            if (ImGui.imageButton(id, spriteWidth, spriteHeight, texCoords[0].x, texCoords[0].y, texCoords[2].x, texCoords[2].y)) {
-                GameObject object = Prefabs.generateSpriteObject(sprite, spriteWidth, spriteHeight);
+            if (ImGui.imageButton(id, spriteWidth, spriteHeight, texCoords[2].x, texCoords[0].y, texCoords[0].x, texCoords[2].y)) {
+                GameObject object = Prefabs.generateSpriteObject(sprite, 32, 32);
                 // Attach this object to the mouse cursor
-                mouseControls.pickupObject(object);
+                levelEditorComponents.getComponent(MouseControls.class).pickupObject(object);
             }
             ImGui.popID();
 
