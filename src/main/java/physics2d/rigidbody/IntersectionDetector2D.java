@@ -1,6 +1,8 @@
 package physics2d.rigidbody;
 
 import org.joml.Vector2f;
+import physics2d.primitives.AABB;
+import physics2d.primitives.Box2D;
 import physics2d.primitives.Circle;
 import renderer.Line2D;
 
@@ -20,6 +22,21 @@ public class IntersectionDetector2D {
     }
 
     public static boolean pointInCircle(Vector2f point, Circle circle) {
+        Vector2f circleCenter = circle.getCenter();
+        Vector2f centerToPoint = new Vector2f(point).sub(circleCenter);
+
+        return centerToPoint.lengthSquared() <= circle.getRadius() * circle.getRadius();
+    }
+
+    public static boolean pointInAABB(Vector2f point, AABB box) {
+        Vector2f min = box.getMin();
+        Vector2f max = box.getMax();
+
+        return point.x <= max.x && min.x <= point.x &&
+                point.y <= max.y && min.y <= point.y;
+    }
+
+    public static boolean pointInBox2D(Vector2f point, Box2D box) {
 
     }
 
