@@ -5,6 +5,7 @@ import physics2d.primitives.AABB;
 import physics2d.primitives.Box2D;
 import physics2d.primitives.Circle;
 import renderer.Line2D;
+import util.JMath;
 
 public class IntersectionDetector2D {
     // =================================
@@ -17,7 +18,6 @@ public class IntersectionDetector2D {
         float intercept = line.getEnd().y - (slope * line.getEnd().x);
 
         // Check the line equation
-        // y = mx + b
         return point.y == slope * point.x + intercept;
     }
 
@@ -25,6 +25,7 @@ public class IntersectionDetector2D {
         Vector2f circleCenter = circle.getCenter();
         Vector2f centerToPoint = new Vector2f(point).sub(circleCenter);
 
+        // Check if length of vector is smaller than radius length
         return centerToPoint.lengthSquared() <= circle.getRadius() * circle.getRadius();
     }
 
@@ -32,12 +33,22 @@ public class IntersectionDetector2D {
         Vector2f min = box.getMin();
         Vector2f max = box.getMax();
 
+        // check if point x and y are both in the bounds of square x and y
         return point.x <= max.x && min.x <= point.x &&
                 point.y <= max.y && min.y <= point.y;
     }
 
     public static boolean pointInBox2D(Vector2f point, Box2D box) {
+        // Translate the point into local space
+        Vector2f pointLocalBoxSpace = new Vector2f(point);
+        JMath.rotate(pointLocalBoxSpace, box.getRigidbody().getRotation(), box.getRigidbody().getPosition());
 
+        Vector2f min = box.getMin();
+        Vector2f max = box.getMax();
+
+        // check if point x and y are both in the bounds of square x and y
+        return pointLocalBoxSpace.x <= max.x && min.x <= pointLocalBoxSpace.x &&
+                pointLocalBoxSpace.y <= max.y && min.y <= pointLocalBoxSpace.y;
     }
 
     // =================================
