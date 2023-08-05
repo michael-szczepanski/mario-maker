@@ -14,6 +14,9 @@ public class IntersectionDetector2D {
     public static boolean pointOnLine(Vector2f point, Line2D line) {
         float dy = line.getEnd().y - line.getStart().y;
         float dx = line.getEnd().x - line.getStart().x;
+        if (dx == 0.f) {
+            return JMath.compare(point.x, line.getStart().x);
+        }
         float slope = dy / dx;
         float intercept = line.getEnd().y - (slope * line.getEnd().x);
 

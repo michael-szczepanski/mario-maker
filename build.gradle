@@ -10,11 +10,6 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-}
-
 test {
     useJUnitPlatform()
 }
@@ -25,6 +20,11 @@ project.ext.lwjglNatives = "natives-windows"
 project.ext.imguiVersion = "3.3.1"
 
 dependencies {
+    // JUnit
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
     // GSON
     implementation 'com.google.code.gson:gson:2.8.6'
 

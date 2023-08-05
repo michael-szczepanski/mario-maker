@@ -6,7 +6,7 @@ import physics2d.rigidbody.Rigidbody2D;
 public class Circle {
 
     private float radius = 1.0f;
-    private Rigidbody2D rigidbody = null;
+    private Rigidbody2D rigidbody = new Rigidbody2D();
 
     public float getRadius() {
         return this.radius;

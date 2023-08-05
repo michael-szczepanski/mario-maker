@@ -8,7 +8,7 @@ public class AABB {
 
     private Vector2f size = new Vector2f();
     private Vector2f halfSize = new Vector2f();
-    private Rigidbody2D rigidbody = null;
+    private Rigidbody2D rigidbody = new Rigidbody2D();
 
     public AABB() {
         this.halfSize = new Vector2f(size).mul(0.5f);
