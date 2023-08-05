@@ -2,6 +2,7 @@ package physics2d;
 
 import org.joml.Vector2f;
 import org.junit.jupiter.api.Test;
+import physics2d.primitives.AABB;
 import physics2d.primitives.Circle;
 import physics2d.rigidbody.IntersectionDetector2D;
 import renderer.Line2D;
@@ -12,9 +13,43 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class CollisionDetectorTests {
     private final float EPSILON = 0.000001f;
 
-    // ===================
+    // ==================
+    // pointInAABB tests
+    // ==================
+
+    @Test
+    public void pointInAABBShouldReturnTrue() {
+        AABB aabb = new AABB(new Vector2f(0.0f,  0.0f), new Vector2f(1.0f, 1.0f));
+        Vector2f point = new Vector2f(0.2f, 0.2f);
+
+        assertTrue(
+                IntersectionDetector2D.pointInAABB(point, aabb)
+        );
+    }
+
+    @Test
+    public void pointOnAABBShouldReturnTrue() {
+        AABB aabb = new AABB(new Vector2f(0.0f,  0.0f), new Vector2f(1.0f, 1.0f));
+        Vector2f point = new Vector2f(0.5f, 0.5f);
+
+        assertTrue(
+                IntersectionDetector2D.pointInAABB(point, aabb)
+        );
+    }
+
+    @Test
+    public void pointNotInAABBShouldReturnFalse() {
+        AABB aabb = new AABB(new Vector2f(0.0f,  0.0f), new Vector2f(1.0f, 1.0f));
+        Vector2f point = new Vector2f(1.5f, 1.5f);
+
+        assertFalse(
+                IntersectionDetector2D.pointInAABB(point, aabb)
+        );
+    }
+
+    // ====================
     // pointInCircle tests
-    // ===================
+    // ====================
 
     @Test
     public void pointInCircleShouldReturnTrue() {
@@ -46,9 +81,9 @@ public class CollisionDetectorTests {
         );
     }
 
-    // =================
+    // ==================
     // pointOnLine tests
-    // =================
+    // ==================
 
     @Test
     public void startPointOnLine2DShouldReturnTrue() {
