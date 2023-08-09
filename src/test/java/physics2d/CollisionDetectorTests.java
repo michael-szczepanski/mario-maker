@@ -3,6 +3,7 @@ package physics2d;
 import org.joml.Vector2f;
 import org.junit.jupiter.api.Test;
 import physics2d.primitives.AABB;
+import physics2d.primitives.Box2D;
 import physics2d.primitives.Circle;
 import physics2d.rigidbody.IntersectionDetector2D;
 import renderer.Line2D;
@@ -12,6 +13,21 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CollisionDetectorTests {
     private final float EPSILON = 0.000001f;
+
+    // ===================
+    // pointInBox2D tests
+    // ===================
+
+    @Test
+    public void pointInBox2DShouldReturnTrue() {
+        Box2D box = new Box2D(new Vector2f(0.0f,  0.0f), new Vector2f(1.0f, 1.0f));
+        box.getRigidbody().setRotation(0.45f);
+        Vector2f point = new Vector2f(0.5f, 0.5f);
+
+        assertTrue(
+                IntersectionDetector2D.pointInBox2D(point, box)
+        );
+    }
 
     // ==================
     // pointInAABB tests

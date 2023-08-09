@@ -41,6 +41,7 @@ public class IntersectionDetector2D {
                 point.y <= max.y && min.y <= point.y;
     }
 
+    // TODO: Write Unit tests
     public static boolean pointInBox2D(Vector2f point, Box2D box) {
         // Translate the point into local space
         Vector2f pointLocalBoxSpace = new Vector2f(point);
@@ -57,6 +58,7 @@ public class IntersectionDetector2D {
     // =================================
     // Line vs Primitive Tests
     // =================================
+    // TODO: Write unit tests
     public static boolean lineAndCircle(Line2D line, Circle circle) {
         if (pointInCircle(line.getStart(), circle) || pointInCircle(line.getEnd(), circle)) {
             return true;
