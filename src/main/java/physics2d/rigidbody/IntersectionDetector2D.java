@@ -11,6 +11,7 @@ public class IntersectionDetector2D {
     // =================================
     // Point vs Primitives
     // =================================
+
     public static boolean pointOnLine(Vector2f point, Line2D line) {
         float dy = line.getEnd().y - line.getStart().y;
         float dx = line.getEnd().x - line.getStart().x;
@@ -58,6 +59,7 @@ public class IntersectionDetector2D {
     // =================================
     // Line vs Primitives
     // =================================
+
     // TODO: Unit tests
     public static boolean lineAndCircle(Line2D line, Circle circle) {
         if (pointInCircle(line.getStart(), circle) || pointInCircle(line.getEnd(), circle)) {
@@ -127,4 +129,6 @@ public class IntersectionDetector2D {
     // =================================
     // Ray vs Primitives
     // =================================
+
+
 }
