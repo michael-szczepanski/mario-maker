@@ -88,12 +88,52 @@ public class CollisionDetectorTests {
         );
     }
 
-    // ==================
+    // ========================================================================
     // pointOnLine tests
-    // ==================
+    // ========================================================================
 
     @Test
-    public void startPointOnLine2DShouldReturnTrue() {
+    public void pointOnLineShouldReturnTrueTest1() {
+        Line2D line = new Line2D(new Vector2f(0, 0), new Vector2f(12, 4));
+        Vector2f point = new Vector2f(0, 0);
+
+        assertTrue(
+                IntersectionDetector2D.pointOnLine(point, line)
+        );
+    }
+
+    @Test
+    public void pointOnLineShouldReturnTrueTest2() {
+        Line2D line = new Line2D(new Vector2f(0, 0), new Vector2f(12, 4));
+        Vector2f point = new Vector2f(6, 2);
+
+        assertTrue(
+                IntersectionDetector2D.pointOnLine(point, line)
+        );
+    }
+
+    @Test
+    public void pointOnLineShouldReturnTrueTest3() {
+        Line2D line = new Line2D(new Vector2f(10, 10), new Vector2f(22, 14));
+        Vector2f point = new Vector2f(10, 10);
+
+        assertTrue(
+                IntersectionDetector2D.pointOnLine(point, line)
+        );
+    }
+
+    @Test
+    public void pointOnLineShouldReturnTrueTest4() {
+        Line2D line = new Line2D(new Vector2f(10, 10), new Vector2f(22, 14));
+        Vector2f point = new Vector2f(16, 12);
+
+        assertTrue(
+                IntersectionDetector2D.pointOnLine(point, line)
+        );
+    }
+
+    @Test
+    public void pointOnLineShouldReturnTrueTest5() {
         Line2D line = new Line2D(new Vector2f(0,0), new Vector2f(12, 4));
         Vector2f point = new Vector2f(0, 0);
 
@@ -103,7 +143,7 @@ public class CollisionDetectorTests {
     }
 
     @Test
-    public void endPointOnLine2DShouldReturnTrue() {
+    public void pointOnLineShouldReturnTrueTest6() {
         Line2D line = new Line2D(new Vector2f(0,0), new Vector2f(12, 4));
         Vector2f point = new Vector2f(12, 4);
 
@@ -113,7 +153,7 @@ public class CollisionDetectorTests {
     }
 
     @Test
-    public void pointOnVerticalLine2DShouldReturnTrue() {
+    public void pointOnLineShouldReturnTrueTest7() {
         Line2D line = new Line2D(new Vector2f(0,0), new Vector2f(0, 10));
         Vector2f point = new Vector2f(0, 5);
 
@@ -123,9 +163,29 @@ public class CollisionDetectorTests {
     }
 
     @Test
-    public void pointNotOnLineShouldReturnFalse() {
+    public void pointOnLineShouldReturnFalseTest1() {
+        Line2D line = new Line2D(new Vector2f(10, 10), new Vector2f(22, 14));
+        Vector2f point = new Vector2f(14, 12);
+
+        assertFalse(
+                IntersectionDetector2D.pointOnLine(point, line)
+        );
+    }
+
+    @Test
+    public void pointOnLineShouldReturnFalseTest2() {
         Line2D line = new Line2D(new Vector2f(0,0), new Vector2f(0, 10));
         Vector2f point = new Vector2f(5, 5);
+
+        assertFalse(
+                IntersectionDetector2D.pointOnLine(point, line)
+        );
+    }
+
+    @Test
+    public void pointOnLineShouldReturnFalseTest3() {
+        Line2D line = new Line2D(new Vector2f(0, 0), new Vector2f(12, 4));
+        Vector2f point = new Vector2f(4, 2);
 
         assertFalse(
                 IntersectionDetector2D.pointOnLine(point, line)
