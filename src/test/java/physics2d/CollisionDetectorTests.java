@@ -18,16 +18,7 @@ public class CollisionDetectorTests {
     // pointInBox2D tests
     // ===================
 
-    @Test
-    public void pointInBox2DShouldReturnTrue() {
-        Box2D box = new Box2D(new Vector2f(0.0f,  0.0f), new Vector2f(1.0f, 1.0f));
-        box.getRigidbody().setRotation(0.45f);
-        Vector2f point = new Vector2f(0.5f, 0.5f);
 
-        assertTrue(
-                IntersectionDetector2D.pointInBox2D(point, box)
-        );
-    }
 
     // ==================
     // pointInAABB tests

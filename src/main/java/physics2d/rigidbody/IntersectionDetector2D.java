@@ -46,8 +46,8 @@ public class IntersectionDetector2D {
         Vector2f pointLocalBoxSpace = new Vector2f(point);
         JMath.rotate(pointLocalBoxSpace, box.getRigidbody().getRotation(), box.getRigidbody().getPosition());
 
-        Vector2f min = box.getMin();
-        Vector2f max = box.getMax();
+        Vector2f min = box.getLocalMin();
+        Vector2f max = box.getLocalMax();
 
         // check if point x and y are both in the bounds of square x and y
         return pointLocalBoxSpace.x <= max.x && min.x <= pointLocalBoxSpace.x &&
@@ -119,7 +119,7 @@ public class IntersectionDetector2D {
         JMath.rotate(localEnd, theta, center);
 
         Line2D localLine = new Line2D(localStart, localEnd);
-        AABB aabb = new AABB(box.getMin(), box.getMax());
+        AABB aabb = new AABB(box.getLocalMin(), box.getLocalMax());
 
         return lineAndAABB(localLine, aabb);
     }
@@ -341,7 +341,7 @@ public class IntersectionDetector2D {
         return true;
     }
 
-    public static boolean aabbAndBox2d(AABB b1, Box2D b2) {
+    public static boolean aabbAndBox2D(AABB b1, Box2D b2) {
         Vector2f[] axesToTest = {
                 new Vector2f(0, 1), new Vector2f(1, 0),
                 new Vector2f(0, 1), new Vector2f(1, 0),
