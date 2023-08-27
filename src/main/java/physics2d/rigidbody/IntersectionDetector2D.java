@@ -6,9 +6,9 @@ import renderer.Line2D;
 import util.JMath;
 
 public class IntersectionDetector2D {
-    // =================================
+    // ===================================================================================================
     // Point vs Primitives
-    // =================================
+    // ===================================================================================================
 
     public static boolean pointOnLine(Vector2f point, Line2D line) {
         float dy = line.getEnd().y - line.getStart().y;
@@ -54,9 +54,9 @@ public class IntersectionDetector2D {
                 pointLocalBoxSpace.y <= max.y && min.y <= pointLocalBoxSpace.y;
     }
 
-    // =================================
+    // ===================================================================================================
     // Line vs Primitives
-    // =================================
+    // ===================================================================================================
 
     // TODO: Unit tests
     public static boolean lineAndCircle(Line2D line, Circle circle) {
@@ -124,9 +124,9 @@ public class IntersectionDetector2D {
         return lineAndAABB(localLine, aabb);
     }
 
-    // =================================
+    // ===================================================================================================
     // Raycasts
-    // =================================
+    // ===================================================================================================
 
     // TODO: Unit tests
     public static boolean raycast(Circle circle, Ray2D ray, RaycastResult result) {
@@ -255,9 +255,9 @@ public class IntersectionDetector2D {
         return true;
     }
 
-    // =================================
+    // ===================================================================================================
     // Circle vs Primitive
-    // =================================
+    // ===================================================================================================
 
     public static boolean circleAndLine(Circle circle, Line2D line) {
        return lineAndCircle(line, circle);
@@ -319,6 +319,64 @@ public class IntersectionDetector2D {
 
         Vector2f circleToBox = new Vector2f(localCirclePos).sub(closestPointToCircle);
         return circleToBox.lengthSquared() <= circle.getRadius() * circle.getRadius();
+    }
+
+    // ===================================================================================================
+    // AABB vs Primitive
+    // ===================================================================================================
+
+    public static boolean aabbAndCircle(AABB box, Circle circle) {
+        return circleAndAABB(circle, box);
+    }
+
+    public static boolean aabbAndAABB(AABB b1, AABB b2) {
+        Vector2f[] axesToTest = {
+                new Vector2f(0, 1), new Vector2f(1, 0)
+        };
+        for (int i = 0; i < axesToTest.length; i++) {
+            if (!overlapOnAxis(b1, b2, axesToTest[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // ===================================================================================================
+    // SAT (Separating Axes Theorem) helpers
+    // ===================================================================================================
+
+    private static boolean overlapOnAxis(AABB b1, AABB b2, Vector2f axis) {
+        // axis needs to be normalized
+        Vector2f interval1 = getInterval(b1, axis);
+        Vector2f interval2 = getInterval(b2, axis);
+
+        return ((interval2.x <= interval1.y) && (interval1.x <= interval2.y));
+    }
+
+    private static Vector2f getInterval(AABB rect, Vector2f axis) {
+        // result will be a Vector2f (min, max) projections
+        Vector2f result = new Vector2f(0, 0);
+        Vector2f min = rect.getMin();
+        Vector2f max = rect.getMax();
+
+        Vector2f[] vertices = {
+                new Vector2f(min.x, min.y), new Vector2f(min.x, max.y),
+                new Vector2f(max.x, min.y), new Vector2f(max.x, max.y)
+        };
+
+        result.x = axis.dot(vertices[0]);
+        result.y = result.x;
+        for (int i = 1; i < 4; i++) {
+            float projection = axis.dot(vertices[i]);
+            if (projection < result.x) {
+                result.x = projection;
+            }
+            if (projection > result.y) {
+                result.y = projection;
+            }
+        }
+
+        return result;
     }
 }
 
