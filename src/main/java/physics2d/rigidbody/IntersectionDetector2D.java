@@ -254,4 +254,19 @@ public class IntersectionDetector2D {
 
         return true;
     }
+
+    // =================================
+    // Circle vs Primitive
+    // =================================
+
+    public static boolean circleAndLine(Circle circle, Line2D line) {
+       return lineAndCircle(line, circle);
+    }
+
+    // TODO: unit tests
+    public static boolean circleAndCircle(Circle c1, Circle c2) {
+        Vector2f vecBetweenCenters = new Vector2f(c1.getCenter()).sub(c2.getCenter());
+        float radiiSum = c1.getRadius() + c2.getRadius();
+        return vecBetweenCenters.lengthSquared() <= radiiSum * radiiSum;
+    }
 }
