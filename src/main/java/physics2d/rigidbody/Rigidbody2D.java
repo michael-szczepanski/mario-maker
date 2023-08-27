@@ -23,12 +23,12 @@ public class Rigidbody2D extends Component {
         return rotation;
     }
 
-    public void setTranform(Vector2f position, float rotation) {
+    public void setTransform(Vector2f position, float rotation) {
         this.position.set(position);
         this.rotation = rotation;
     }
 
-    public void setTranform(Vector2f position) {
+    public void setTransform(Vector2f position) {
         this.position.set(position);
     }
 }
