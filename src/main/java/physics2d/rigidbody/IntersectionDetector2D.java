@@ -31,6 +31,7 @@ public class IntersectionDetector2D {
         return centerToPoint.lengthSquared() <= circle.getRadius() * circle.getRadius();
     }
 
+    // TODO: Unit tests
     public static boolean pointInAABB(Vector2f point, AABB box) {
         Vector2f min = box.getMin();
         Vector2f max = box.getMax();
@@ -57,7 +58,6 @@ public class IntersectionDetector2D {
     // Line vs Primitives
     // ===================================================================================================
 
-    // TODO: Unit tests
     public static boolean lineAndCircle(Line2D line, Circle circle) {
         if (pointInCircle(line.getStart(), circle) || pointInCircle(line.getEnd(), circle)) {
             return true;
@@ -198,6 +198,7 @@ public class IntersectionDetector2D {
         return true;
     }
 
+    // TODO: Unit tests
     public static boolean raycast(Box2D box, Ray2D ray, RaycastResult result) {
         RaycastResult.reset(result);
 
@@ -328,6 +329,7 @@ public class IntersectionDetector2D {
         return circleAndAABB(circle, box);
     }
 
+    // TODO: Unit tests
     public static boolean aabbAndAABB(AABB b1, AABB b2) {
         Vector2f[] axesToTest = {
                 new Vector2f(0, 1), new Vector2f(1, 0)
@@ -340,6 +342,7 @@ public class IntersectionDetector2D {
         return true;
     }
 
+    // TODO: Unit tests
     public static boolean aabbAndBox2D(AABB b1, Box2D b2) {
         Vector2f[] axesToTest = {
                 new Vector2f(0, 1), new Vector2f(1, 0),
