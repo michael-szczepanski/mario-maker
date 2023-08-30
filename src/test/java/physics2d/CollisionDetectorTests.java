@@ -226,6 +226,98 @@ public class CollisionDetectorTests {
     }
 
     // ========================================================================
+    // pointInAABB IntersectionDetector2d tests
+    // ========================================================================
+
+    @Test
+    public void pointInAABBShouldReturnTrueTest1() {
+        AABB box = new AABB();
+        box.setSize(new Vector2f(10));
+        Rigidbody2D body = new Rigidbody2D();
+        box.setRigidbody(body);
+
+        Vector2f point = new Vector2f(4, 4.3f);
+
+        assertTrue(
+                IntersectionDetector2D.pointInAABB(point, box)
+        );
+    }
+
+
+    @Test
+    public void pointInAABBShouldReturnTrueTest2() {
+        AABB box = new AABB();
+        box.setSize(new Vector2f(10));
+        Rigidbody2D body = new Rigidbody2D();
+        box.setRigidbody(body);
+
+        Vector2f point = new Vector2f(-4.9f, -4.9f);
+
+        assertTrue(
+                IntersectionDetector2D.pointInAABB(point, box)
+        );
+    }
+
+    @Test
+    public void pointInAABBShouldReturnFalseTest1() {
+        AABB box = new AABB();
+        box.setSize(new Vector2f(10));
+        Rigidbody2D body = new Rigidbody2D();
+        box.setRigidbody(body);
+
+        Vector2f point = new Vector2f(0, 5.1f);
+
+        assertFalse(
+                IntersectionDetector2D.pointInAABB(point, box)
+        );
+    }
+
+    @Test
+    public void pointInAABBShouldReturnTrueTest3() {
+        AABB box = new AABB();
+        box.setSize(new Vector2f(10));
+        Rigidbody2D body = new Rigidbody2D();
+        body.setTransform(new Vector2f(10));
+        box.setRigidbody(body);
+
+        Vector2f point = new Vector2f(4 + 10, 4.3f + 10);
+
+        assertTrue(
+                IntersectionDetector2D.pointInAABB(point, box)
+        );
+    }
+
+    @Test
+    public void pointInAABBShouldReturnTrueTest4() {
+        AABB box = new AABB();
+        box.setSize(new Vector2f(10));
+        Rigidbody2D body = new Rigidbody2D();
+        body.setTransform(new Vector2f(10));
+        box.setRigidbody(body);
+
+        Vector2f point = new Vector2f(-4.9f + 10, -4.9f + 10);
+
+        assertTrue(
+                IntersectionDetector2D.pointInAABB(point, box)
+        );
+    }
+
+    @Test
+    public void pointInAABBShouldReturnFalseTest2() {
+        AABB box = new AABB();
+        box.setSize(new Vector2f(10));
+        Rigidbody2D body = new Rigidbody2D();
+        body.setTransform(new Vector2f(10));
+        box.setRigidbody(body);
+
+        Vector2f point = new Vector2f(0 + 10, 5.1f + 10);
+
+        assertFalse(
+                IntersectionDetector2D.pointInAABB(point, box)
+        );
+    }
+
+    // ========================================================================
     // pointInBox2D IntersectionDetector2d tests
     // ========================================================================
 
@@ -333,7 +425,7 @@ public class CollisionDetectorTests {
     }
 
     @Test
-    public void pointInRotatedShouldReturnTrueTest2() {
+    public void pointInRotatedBox2DShouldReturnTrueTest2() {
         Box2D box = new Box2D();
         box.setSize(new Vector2f(10));
         Rigidbody2D body = new Rigidbody2D();
@@ -348,7 +440,7 @@ public class CollisionDetectorTests {
     }
 
     @Test
-    public void pointInRotatedShouldReturnFalseTest1() {
+    public void pointInRotatedBox2DShouldReturnFalseTest1() {
         Box2D box = new Box2D();
         box.setSize(new Vector2f(10));
         Rigidbody2D body = new Rigidbody2D();
@@ -378,7 +470,7 @@ public class CollisionDetectorTests {
     }
 
     @Test
-    public void pointInRotatedShouldReturnTrueTest4() {
+    public void pointInRotatedBox2DShouldReturnTrueTest4() {
         Box2D box = new Box2D();
         box.setSize(new Vector2f(10));
         Rigidbody2D body = new Rigidbody2D();
@@ -393,7 +485,7 @@ public class CollisionDetectorTests {
     }
 
     @Test
-    public void pointInRotatedShouldReturnFalseTest2() {
+    public void pointInRotatedBox2DShouldReturnFalseTest2() {
         Box2D box = new Box2D();
         box.setSize(new Vector2f(10));
         Rigidbody2D body = new Rigidbody2D();
@@ -408,7 +500,7 @@ public class CollisionDetectorTests {
     }
 
     // ========================================================================
-    // pointInBox2D IntersectionDetector2d tests
+    // lineAndCircle IntersectionDetector2d tests
     // ========================================================================
 
     @Test
@@ -515,4 +607,8 @@ public class CollisionDetectorTests {
                 IntersectionDetector2D.lineAndCircle(line, circle)
         );
     }
+
+    // ========================================================================
+    // pointOnLine IntersectionDetector2d tests
+    // ========================================================================
 }

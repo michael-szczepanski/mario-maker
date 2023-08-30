@@ -31,7 +31,6 @@ public class IntersectionDetector2D {
         return centerToPoint.lengthSquared() <= circle.getRadius() * circle.getRadius();
     }
 
-    // TODO: Unit tests
     public static boolean pointInAABB(Vector2f point, AABB box) {
         Vector2f min = box.getMin();
         Vector2f max = box.getMax();
