@@ -609,6 +609,54 @@ public class CollisionDetectorTests {
     }
 
     // ========================================================================
-    // pointOnLine IntersectionDetector2d tests
+    // lineAndAABB IntersectionDetector2d tests
     // ========================================================================
+
+    @Test
+    public void lineAndAABBShouldReturnTrueTest1() {
+        AABB box = new AABB();
+        box.setSize(new Vector2f(10));
+
+        Line2D line = new Line2D(new Vector2f(-10, -10), new Vector2f(10, 10));
+
+        assertTrue(
+                IntersectionDetector2D.lineAndAABB(line, box)
+        );
+    }
+
+    @Test
+    public void lineAndAABBShouldReturnTrueTest2() {
+        AABB box = new AABB();
+        box.setSize(new Vector2f(10));
+
+        Line2D line = new Line2D(new Vector2f(-5, -5), new Vector2f(-10, 10));
+
+        assertTrue(
+                IntersectionDetector2D.lineAndAABB(line, box)
+        );
+    }
+
+    @Test
+    public void lineAndAABBShouldReturnTrueTest3() {
+        AABB box = new AABB();
+        box.setSize(new Vector2f(10));
+
+        Line2D line = new Line2D(new Vector2f(-5, -5), new Vector2f(-5, 5));
+
+        assertTrue(
+                IntersectionDetector2D.lineAndAABB(line, box)
+        );
+    }
+
+    @Test
+    public void lineAndAABBShouldReturnFalseTest1() {
+        AABB box = new AABB();
+        box.setSize(new Vector2f(10));
+
+        Line2D line = new Line2D(new Vector2f(-6, -6), new Vector2f(-7, -7));
+
+        assertFalse(
+                IntersectionDetector2D.lineAndAABB(line, box)
+        );
+    }
 }

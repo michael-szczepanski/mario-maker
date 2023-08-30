@@ -6,6 +6,8 @@ import renderer.Line2D;
 import util.JMath;
 
 public class IntersectionDetector2D {
+    // TODO: Graphs for collision geometry
+
     // ===================================================================================================
     // Point vs Primitives
     // ===================================================================================================
