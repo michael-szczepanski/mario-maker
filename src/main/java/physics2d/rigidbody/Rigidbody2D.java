@@ -72,6 +72,11 @@ public class Rigidbody2D extends Component {
         this.position.set(position);
     }
 
+    public void setRawTransform(Transform rawTransform) {
+        this.rawTransform = rawTransform;
+        this.position.set(rawTransform.position);
+    }
+
     public float getMass() {
         return mass;
     }

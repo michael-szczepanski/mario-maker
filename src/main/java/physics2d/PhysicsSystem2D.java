@@ -22,7 +22,7 @@ public class PhysicsSystem2D {
     }
 
     public void update(float dt) {
-
+        fixedUpdate();
     }
 
     public void fixedUpdate() {
@@ -36,7 +36,6 @@ public class PhysicsSystem2D {
 
     public void addRigidbody(Rigidbody2D body) {
         this.rigidbodies.add(body);
-        // Register gravity
         this.forceRegistry.add(body, gravity);
     }
 }

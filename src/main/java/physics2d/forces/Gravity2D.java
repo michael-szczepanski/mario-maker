@@ -8,7 +8,7 @@ public class Gravity2D implements ForceGenerator {
     public Vector2f gravity;
 
     public Gravity2D(Vector2f force) {
-        this.gravity.set(force);
+        this.gravity = new Vector2f(force);
     }
 
     @Override

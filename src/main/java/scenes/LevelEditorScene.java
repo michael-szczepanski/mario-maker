@@ -1,6 +1,9 @@
 package scenes;
 
-import components.*;
+import components.GridLines;
+import components.MouseControls;
+import components.Sprite;
+import components.Spritesheet;
 import imgui.ImGui;
 import imgui.ImVec2;
 import jade.Camera;
@@ -8,6 +11,10 @@ import jade.GameObject;
 import jade.Prefabs;
 import jade.Transform;
 import org.joml.Vector2f;
+import org.joml.Vector3f;
+import physics2d.PhysicsSystem2D;
+import physics2d.rigidbody.Rigidbody2D;
+import renderer.DebugDraw;
 import util.AssetPool;
 
 public class LevelEditorScene extends Scene {
@@ -15,18 +22,36 @@ public class LevelEditorScene extends Scene {
     private Spritesheet sprites;
 
     GameObject levelEditorComponents = new GameObject("LevelEditor", new Transform(new Vector2f()), 0);
+    PhysicsSystem2D physics = new PhysicsSystem2D(1.0f / 60.0f, new Vector2f(0, -10));
+    Transform obj1, obj2;
+    Rigidbody2D rb1, rb2;
 
     @Override
     public void init() {
         levelEditorComponents.addComponent(new MouseControls());
 //        levelEditorComponents.addComponent(new GridLines());
+
+        obj1 = new Transform(new Vector2f(100, 500));
+        obj2 = new Transform(new Vector2f(200, 500));
+        rb1 = new Rigidbody2D();
+        rb2 = new Rigidbody2D();
+        rb1.setRawTransform(obj1);
+        rb2.setRawTransform(obj2);
+        rb1.setMass(100);
+        rb2.setMass(200);
+
+        physics.addRigidbody(rb1);
+        physics.addRigidbody(rb2);
+
         loadResources();
 
         this.camera = new Camera(new Vector2f(0, 0));
         sprites = AssetPool.getSpritesheet("assets/images/spritesheets/decorationsAndBlocks.png");
 
         if (levelLoaded) {
-            this.activeGameObject = gameObjects.get(0);
+            if (gameObjects.size() > 0) {
+                this.activeGameObject = gameObjects.get(0);
+            }
             return;
         }
     }
@@ -44,9 +69,13 @@ public class LevelEditorScene extends Scene {
     public void update(float dt) {
         levelEditorComponents.update(dt);
 
-       for (GameObject go : this.gameObjects) {
+        for (GameObject go : this.gameObjects) {
             go.update(dt);
         }
+
+        DebugDraw.addBox2D(obj1.position, new Vector2f(32, 32), 0, new Vector3f(1, 0, 0));
+        DebugDraw.addBox2D(obj2.position, new Vector2f(32, 32), 0, new Vector3f(0, 0, 1));
+        physics.update(dt);
 
         this.renderer.render();
     }
