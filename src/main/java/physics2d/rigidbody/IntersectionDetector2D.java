@@ -82,7 +82,6 @@ public class IntersectionDetector2D {
         return pointInCircle(closestPoint, circle);
     }
 
-    // TODO: Unit tests
     public static boolean lineAndAABB(Line2D line, AABB box) {
         if (pointInAABB(line.getStart(), box) || pointInAABB(line.getEnd(), box)) {
             return true;

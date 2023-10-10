@@ -659,4 +659,56 @@ public class CollisionDetectorTests {
                 IntersectionDetector2D.lineAndAABB(line, box)
         );
     }
+
+    @Test
+    public void lineAndAABBShouldReturnTrueTest4() {
+        AABB box = new AABB();
+        box.setSize(new Vector2f(10));
+
+        Rigidbody2D body = new Rigidbody2D();
+        body.setTransform(new Vector2f(10));
+        box.setRigidbody(body);
+
+        Line2D line = new Line2D(new Vector2f(10 - 5, 10 - 5), new Vector2f(10 - 5, 10 + 5));
+
+        assertTrue(
+                IntersectionDetector2D.lineAndAABB(line, box)
+        );
+    }
+
+    @Test
+    public void lineAndAABBShouldReturnFalseTest2() {
+        AABB box = new AABB();
+        box.setSize(new Vector2f(10));
+
+        Rigidbody2D body = new Rigidbody2D();
+        body.setTransform(new Vector2f(10));
+        box.setRigidbody(body);
+
+        Line2D line = new Line2D(new Vector2f(10 - 6, 10 - 6), new Vector2f(10 - 7, 10 - 7));
+
+        assertFalse(
+                IntersectionDetector2D.lineAndAABB(line, box)
+        );
+    }
+
+    // ========================================================================
+    // lineAndBox2D IntersectionDetector2d tests
+    // ========================================================================
+
+    @Test
+    public void lineAndBox2DShouldReturnTrueTest1() {
+        Box2D box = new Box2D();
+        box.setSize(new Vector2f(10));
+
+        Rigidbody2D body = new Rigidbody2D();
+        body.setTransform(new Vector2f(0), 45);
+        box.setRigidbody(body);
+
+        Line2D line = new Line2D(new Vector2f(-10, -10), new Vector2f(10, 10));
+
+        assertTrue(
+                IntersectionDetector2D.lineAndBox2D(line, box)
+        );
+    }
 }
