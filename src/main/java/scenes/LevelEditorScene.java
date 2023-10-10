@@ -19,7 +19,7 @@ public class LevelEditorScene extends Scene {
     @Override
     public void init() {
         levelEditorComponents.addComponent(new MouseControls());
-        levelEditorComponents.addComponent(new GridLines());
+//        levelEditorComponents.addComponent(new GridLines());
         loadResources();
 
         this.camera = new Camera(new Vector2f(0, 0));

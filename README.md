@@ -4,10 +4,11 @@ A deep dive into designing a game engine with the help of a FreeCodeCamp tutoria
 ### Built with
 * Java
 * ImGui
+* LWJGL
 
 ### Design notes
-* Uses LWJGL
 * Game uses orthographic projections for the camera
+* Physics engine acts like a particle physics engine, treating its rigid bodies as collections of particles
 
 ### Contact
 - [Michael Szczepanski](mailto:m.szczepanski90@gmail.com)

@@ -7,6 +7,8 @@ public class Rigidbody2D extends Component {
 
     private Vector2f position = new Vector2f();
     private float rotation = 0.0f;
+    private float mass = 0.0f;
+    private float inverseMass = 0.0f;
 
     private Vector2f linearVelocity = new Vector2f();
     private float angularVelocity = 0.0f;
@@ -30,5 +32,16 @@ public class Rigidbody2D extends Component {
 
     public void setTransform(Vector2f position) {
         this.position.set(position);
+    }
+
+    public float getMass() {
+        return mass;
+    }
+
+    public void setMass(float mass) {
+        this.mass = mass;
+        if (this.mass != 0.0f) {
+            this.inverseMass = 1.0f / this.mass;
+        }
     }
 }
