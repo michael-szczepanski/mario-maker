@@ -1,6 +1,5 @@
 package scenes;
 
-import components.GridLines;
 import components.MouseControls;
 import components.Sprite;
 import components.Spritesheet;
