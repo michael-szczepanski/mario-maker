@@ -42,7 +42,7 @@ public class CollisionManifold {
     }
 
     public List<Vector2f> getContactPoint() {
-        return contactPoint;
+        return contactPoints;
     }
 
     public float getDepth() {
