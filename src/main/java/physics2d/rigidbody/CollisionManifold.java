@@ -41,7 +41,7 @@ public class CollisionManifold {
         return normal;
     }
 
-    public List<Vector2f> getContactPoint() {
+    public List<Vector2f> getContactPoints() {
         return contactPoints;
     }
 
