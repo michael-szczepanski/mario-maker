@@ -16,6 +16,7 @@ import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
 public class DebugDraw {
+    // TODO: ADD CONSTANTS FOR COMMON COLORS
     private static int MAX_LINES = 500;
 
     private static List<Line2D> lines = new ArrayList<>();
@@ -132,7 +133,6 @@ public class DebugDraw {
     // =======================================
 
     public static void addBox2D(Vector2f center, Vector2f dimensions, float rotation) {
-        // TODO: ADD CONSTANTS FOR COMMON COLORS
         addBox2D(center, dimensions, rotation, new Vector3f(0, 1, 0), 1);
     }
 
@@ -159,5 +159,35 @@ public class DebugDraw {
         addLine2D(vertices[0], vertices[3], color, lifetime);
         addLine2D(vertices[1], vertices[2], color, lifetime);
         addLine2D(vertices[2], vertices[3], color, lifetime);
+    }
+
+    // ==================================================
+    // Add Circle methods
+    // ==================================================
+    public static void addCircle(Vector2f center, float radius) {
+        addCircle(center, radius, new Vector3f(0, 1, 0), 1);
+    }
+
+    public static void addCircle(Vector2f center, float radius, Vector3f color) {
+        addCircle(center, radius, color, 1);
+    }
+
+    public static void addCircle(Vector2f center, float radius, Vector3f color, int lifetime) {
+        Vector2f[] points = new Vector2f[20];
+        int increment = 360 / points.length;
+        int currentAngle = 0;
+
+        for (int i=0; i < points.length; i++) {
+            Vector2f tmp = new Vector2f(0, radius);
+            JMath.rotate(tmp, currentAngle, new Vector2f());
+            points[i] = new Vector2f(tmp).add(center);
+
+            if (i > 0) {
+                addLine2D(points[i - 1], points[i], color, lifetime);
+            }
+            currentAngle += increment;
+        }
+
+        addLine2D(points[points.length - 1], points[0], color, lifetime);
     }
 }

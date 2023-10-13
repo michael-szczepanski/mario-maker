@@ -23,7 +23,7 @@ public class GridLines extends Component {
         int width = (int)projectionSize.x + Settings.GRID_WIDTH * 2;
 
         int maxLines = Math.max(numVtLines, numHzLines);
-        Vector3f color = new Vector3f(0.7f, 0.7f, 0.7f);
+        Vector3f color = new Vector3f(0.85f, 0.85f, 0.85f);
 
         for (int i = 0; i < maxLines; i++) {
             int x = firstX + (Settings.GRID_WIDTH * i);

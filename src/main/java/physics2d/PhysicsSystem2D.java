@@ -131,8 +131,10 @@ public class PhysicsSystem2D {
         );
     }
 
-    public void addRigidbody(Rigidbody2D body) {
+    public void addRigidbody(Rigidbody2D body, boolean addGravity) {
         this.rigidbodies.add(body);
-        this.forceRegistry.add(body, gravity);
+        if (addGravity) {
+            this.forceRegistry.add(body, gravity);
+        }
     }
 }
