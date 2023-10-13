@@ -3,9 +3,11 @@ package physics2d.rigidbody;
 import components.Component;
 import jade.Transform;
 import org.joml.Vector2f;
+import physics2d.primitives.Collider2D;
 
 public class Rigidbody2D extends Component {
     private Transform rawTransform;
+    private Collider2D collider;
 
     private Vector2f position = new Vector2f();
     private float rotation = 0.0f;
@@ -52,6 +54,10 @@ public class Rigidbody2D extends Component {
         this.forceAccum.add(force);
     }
 
+    public boolean hasInfiniteMass() {
+        return this.mass == 0.0f;
+    }
+
     //=====================
     // Getters and Setters
     //=====================
@@ -86,5 +92,13 @@ public class Rigidbody2D extends Component {
         if (this.mass != 0.0f) {
             this.inverseMass = 1.0f / this.mass;
         }
+    }
+
+    public Collider2D getCollider() {
+        return this.collider;
+    }
+
+    public void setCollider(Collider2D collider) {
+        this.collider = collider;
     }
 }
