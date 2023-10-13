@@ -20,6 +20,9 @@ public class Rigidbody2D extends Component {
     private float linearDamping = 0.0f;
     private float angularDamping = 0.0f;
 
+    // Coefficient of restitution
+    private float cor = 1.0f;
+
     private boolean fixedRotation = false;
 
     public void physicsUpdate(float dt) {
@@ -94,11 +97,31 @@ public class Rigidbody2D extends Component {
         }
     }
 
+    public float getInverseMass() {
+        return this.inverseMass;
+    }
+
     public Collider2D getCollider() {
         return this.collider;
     }
 
     public void setCollider(Collider2D collider) {
         this.collider = collider;
+    }
+
+    public Vector2f getLinearVelocity() {
+        return this.linearVelocity;
+    }
+
+    public void setLinearVelocity(Vector2f linearVelocity) {
+        this.linearVelocity.set(linearVelocity);
+    }
+
+    public float getCor() {
+        return cor;
+    }
+
+    public void setCor(float cor) {
+        this.cor = cor;
     }
 }
