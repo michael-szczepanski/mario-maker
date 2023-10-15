@@ -4,6 +4,7 @@ import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 import renderer.DebugDraw;
+import renderer.FrameBuffer;
 import scenes.LevelEditorScene;
 import scenes.LevelScene;
 import scenes.Scene;
@@ -18,6 +19,7 @@ public class Window {
   private String title;
   private long glfwWindow;
   private ImGuiLayer imGuiLayer;
+  private FrameBuffer frameBuffer;
 
   public float r, g, b, a;
 
@@ -91,7 +93,6 @@ public class Window {
 
     // Configure GLFW
     glfwDefaultWindowHints();
-    glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
     glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // Window is not visible at first
 
     // Create the window
@@ -133,6 +134,8 @@ public class Window {
     this.imGuiLayer = new ImGuiLayer(glfwWindow);
     this.imGuiLayer.initImGui();
 
+    this.frameBuffer = new FrameBuffer(2560, 1600);
+
     Window.changeScene(0);
   }
 
@@ -150,12 +153,16 @@ public class Window {
       glClearColor(r, g, b, a);
       glClear(GL_COLOR_BUFFER_BIT);
 
+      this.frameBuffer.bind();
+
       if (dt >= 0) {
         DebugDraw.draw();
         currentScene.update(dt);
       }
 
-//      this.imGuiLayer.update(dt, currentScene);
+      this.frameBuffer.unbind();
+
+      this.imGuiLayer.update(dt, currentScene);
       glfwSwapBuffers(glfwWindow);
 
       endTime = (float)glfwGetTime();
