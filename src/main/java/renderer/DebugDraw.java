@@ -115,6 +115,7 @@ public class DebugDraw {
     // =======================================
     // Add line2D methods
     // =======================================
+
     public static void addLine2D(Vector2f from, Vector2f to) {
         // TODO: add constants for common colors
         addLine2D(from, to, new Vector3f(0, 1, 0), 1);

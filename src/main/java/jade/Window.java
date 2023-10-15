@@ -91,6 +91,7 @@ public class Window {
 
     // Configure GLFW
     glfwDefaultWindowHints();
+    glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
     glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // Window is not visible at first
 
     // Create the window
